@@ -1,17 +1,4 @@
-# 1. Gera uma chave privada RSA
-resource "tls_private_key" "pk" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-# 2. Cria o Key Pair na AWS usando a chave gerada
 resource "aws_key_pair" "generated_key" {
   key_name   = "website-server-key"
-  public_key = tls_private_key.pk.public_key_openssh
-}
-
-# 3. (Opcional) Guarda a chave privada num arquivo local se precisar acessar via SSH
-resource "local_file" "ssh_key" {
-  content  = tls_private_key.pk.private_key_pem
-  filename = "${path.module}/minha-chave-ec2.pem"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDE7k/vXfkjTGk422xt49rKUM3wJ5gmGrof24CAU4RuvMesdj1jxFGrjN4jWDOnc4CSjmGnJNk7pqT5IdzegmVDdcRLzjlzWX0kSCWsG6XvmnxLUy6aeRsC1MGrSfq9RSjwfe8Al+9MWAFLz320KoMAVuP77BqzPoDFZ/yf6YXNrgqYwmg2xHwG5z/3Ng8YgIbddXyoiAl3Va2hox3vxpNftmV6ujd1NUXnftL4GUagyhsyFxkq3F8W9M+F3D01xFPs1GKslCaZ/oCkGUjs6h2Bc7WB/0zFIAuwhr8KuQEJnhOtknpdOrB8Zr5WDV3zhEXGFwJjus36mx4s+FLmbXS1jJRZnJvGbPAyV2vUpH6wAP4UnKpv6iOWZMhH54ytfU+2RHQO/Mgi8GrMOzYLzqjeIa8iQAqljUX7kQWag/GqbTkgPx3B+GMLNTTOA4YnMqhdknltEadehb5+bUCsnJ6sO+1L0VgB4JA8BgiWlapgKWj3HlR6djx4o65AQzHO9l7fGlnf1c/1qhvCLQT6fl88w6Rq5mweqxqKmPVKb7CF6L/IxYbh17dPPU6KnPtKFc5nN3IfrxNDu/y81tMhPBWvLN3CUVP6GkYdCbSPb9TzgboVE4sfo/6q5PX1hnajUQlVQKQ8lwHrEACER3QTf7oITqxX9qW7SlhiPy9Vp618sQ== victor-pafaro@Victor-Pafaro" # Cole todo o conteúdo do cat aqui
 }
